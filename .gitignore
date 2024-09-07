@@ -1,0 +1,65 @@
+# Django
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+media
+
+# If your build process includes running collectstatic, you probably don't want collected static files in your Git repository
+/staticfiles
+
+# Django migrations
+**/migrations/*
+
+# If you are using Django Compressor
+/compressed
+
+# Python
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+var
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*~
+.project
+.pydevproject
+.DS_Store
