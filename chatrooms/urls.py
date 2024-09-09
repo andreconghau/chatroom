@@ -16,8 +16,17 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.http import HttpResponse
+from django.urls import path, include
+
+# custom url in Project.
+def test(request):
+    return HttpResponse("Hello, Django!")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("test", test),
+    path('', include("base.urls")),
 ]
+
+
