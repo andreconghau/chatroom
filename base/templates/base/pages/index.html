@@ -8,7 +8,7 @@
   <div>
     <h2>{{ room.name }}</h2>
     <p>{{ room.status }}</p>
-    <a href="/room/{{room.id}}/">View room</a>
+    <a href="{% url 'room' room.id %}">View room</a>
   </div>
   {% endfor %}
 </div>
