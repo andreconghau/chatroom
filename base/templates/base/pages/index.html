@@ -7,8 +7,8 @@
   {%for room in rooms %}
   <div>
     <h2>{{ room.name }}</h2>
-    <p>{{ room.description }}</p>
-    <a href="">View room</a>
+    <p>{{ room.status }}</p>
+    <a href="/room/{{room.id}}/">View room</a>
   </div>
   {% endfor %}
 </div>
