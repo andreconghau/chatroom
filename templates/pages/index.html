@@ -1,4 +1,16 @@
+<!-- prettier-ignore -->
 {% extends 'layouts/default.html' %} 
 {% block content %}
 <h1>Hello, world! index page</h1>
+
+<div>
+  {%for room in rooms %}
+  <div>
+    <h2>{{ room.name }}</h2>
+    <p>{{ room.description }}</p>
+    <a href="">View room</a>
+  </div>
+  {% endfor %}
+</div>
+
 {% endblock content %}
