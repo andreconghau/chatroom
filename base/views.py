@@ -8,9 +8,15 @@ from .models import Room, Topic
 
 
 def home(request):
-    rooms = Room.objects.all()
+    topic_id = request.GET.get('topic', None)
     topics = Topic.objects.all()
-    context = {'rooms': rooms, 'topics': topics}
+    rooms_count = Room.objects.count()
+    if topic_id:
+        rooms = Room.objects.filter(topic__id=topic_id)
+    else:
+        rooms = Room.objects.all()
+
+    context = {'rooms': rooms, 'topics': topics, 'rooms_count': rooms_count}
     return render(request, "base/pages/index.html", context)
 
 def room(request, id):

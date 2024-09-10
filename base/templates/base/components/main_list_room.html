@@ -1,6 +1,6 @@
 <!-- Main Content -->
 <div class="col-lg-6 col-md-8 main-content">
-  {%for room in rooms %}
+  {% if rooms.count > 0 %}{%for room in rooms %}
   <div class="post position-relative">
     <!-- Title and Description -->
     <h5><a href="{% url 'room' room.id %}">{{room.name}}</a></h5>
@@ -47,4 +47,7 @@
   </div>
 
   {% endfor %}
+  {% else %}
+  <h3 class="text-center">No Rooms Found</h3>
+  {% endif %}
 </div>
