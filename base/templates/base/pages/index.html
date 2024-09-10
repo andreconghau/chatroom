@@ -1,8 +1,11 @@
 <!-- prettier-ignore -->
 {% extends 'layouts/default.html' %} 
-{% block content %}
+{% block content  %}
 <h1>Hello, world! index page</h1>
 
+<div>
+  <a href="{% url 'create-room' %}" class="btn btn-primary">New room</a>
+</div>
 <div>
   {%for room in rooms %}
   <div>

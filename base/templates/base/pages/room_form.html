@@ -1,0 +1,10 @@
+<!-- prettier-ignore -->
+{% extends 'layouts/default.html' %} 
+{% block content %}
+<h1>Create Room</h1>
+<form method="POST" action="{% url 'create-room' %}">
+{% csrf_token %}
+{{form.as_p}}
+<button type="submit" class="btn btn-primary">Create Room</button>
+<div
+{% endblock content %}
