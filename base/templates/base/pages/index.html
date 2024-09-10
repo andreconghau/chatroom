@@ -12,7 +12,8 @@
     <div>@{{room.host.username}}</div>
     <h2>{{ room.name }}</h2>
     <p>{{ room.status }}</p>
-    <a href="{% url 'room' room.id %}">View room</a>
+    <a href="{% url 'room' room.id %}">View room</a> |
+    <span> <a href="{% url 'update-room' room.id %}">Edit</a> </span>
     <p><small>{{ room.topic.name }}</small></p>
   </div>
   {% endfor %}
