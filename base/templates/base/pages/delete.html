@@ -1,0 +1,10 @@
+<!-- prettier-ignore -->
+{% extends 'layouts/default.html' %} 
+{% block content %}
+<h1>Do you want to remove {{ obj }} ?</h1>
+<form method="POST" action="">
+  {% csrf_token %}
+  <div><a href="{{request.META.HTTP_REFERER}}">Cancel</a></div>
+  <div><input type="submit" value="Yes" /></div>
+</form>
+{% endblock content%}

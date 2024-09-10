@@ -51,6 +51,15 @@ def updateRoom(request, id):
             return redirect('home')
     return render(request, "base/pages/room_form.html", context)
 
+def deleteRoom(request, id):
+    room = Room.objects.get(id=id)
+    context = {'obj': room}
+    if request.method == 'POST':
+        room.delete()
+        print(f'Room {id} - {room.name} deleted successfully')
+        return redirect('home')
+    return render(request, "base/pages/delete.html", context)
+
 def get_room_by_id(room_id):
     for room in rooms:
         if room['id'] == room_id:
