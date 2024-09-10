@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Room
 
 # Create your views here.
 
@@ -10,12 +11,13 @@ rooms = [
 ]
 
 def home(request):
+    rooms = Room.objects.all()
     context = {'rooms': rooms}
     return render(request, "base/pages/index.html", context)
 
 def room(request, id):
     id_parse = int(id)
-    room_item = get_room_by_id(id_parse)
+    room_item = Room.objects.get(id=id_parse)
     context = {'id': id_parse, 'room': room_item}  
     print(context)
     return render(request, "base/pages/room.html", context)
