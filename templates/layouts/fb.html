@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>StudyBud - Responsive 3 Column Layout with Search Bar</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome for Icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f7f8fa;
+      }
+
+      /* Custom styling for header */
+      .navbar {
+        background-color: #4b6cb7;
+      }
+
+      .navbar-brand {
+        color: white;
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+
+      .navbar-nav .nav-link {
+        color: white;
+      }
+
+      .navbar-nav .nav-link:hover {
+        color: #ced4da;
+      }
+
+      .search-bar input {
+        width: 250px;
+      }
+
+      /* Sidebar and Content Layout */
+      .left-sidebar,
+      .right-sidebar {
+        background-color: #f0f2f5;
+        padding-top: 20px;
+      }
+
+      .left-sidebar {
+        height: 100vh;
+      }
+
+      .right-sidebar {
+        height: 100vh;
+      }
+
+      .main-content {
+        padding: 20px;
+      }
+
+      .post {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        padding: 20px;
+      }
+
+      .post h5 {
+        font-size: 1.4rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .post .desc {
+        font-size: 1rem;
+        margin-bottom: 10px;
+      }
+
+      .post .info {
+        font-size: 0.9rem;
+        color: #6c757d;
+      }
+
+      .post .info span {
+        margin-right: 20px;
+      }
+
+      .post .info i {
+        margin-right: 5px;
+      }
+
+      .footer {
+        background-color: #4b6cb7;
+        color: white;
+        text-align: center;
+        padding: 20px 0;
+        margin-top: 30px;
+      }
+
+      /* Responsive Design Adjustments */
+      @media (max-width: 991px) {
+        .left-sidebar {
+          display: none; /* Hide left sidebar on tablet and below */
+        }
+
+        .search-bar input {
+          width: 150px;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .right-sidebar {
+          display: none; /* Hide right sidebar on mobile */
+        }
+
+        .main-content {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+
+        .search-bar input {
+          width: 100px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">CIT's Blog</a>
+
+        <!-- Search Bar -->
+        <form class="d-flex ms-auto search-bar">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-light" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+
+        <!-- Toggle for mobile -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'create-room' %}">New Room</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Courses</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Community</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% block content %}{% endblock content %}
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2024 StudyBud. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

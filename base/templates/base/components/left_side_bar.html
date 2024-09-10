@@ -1,0 +1,21 @@
+<!-- Left Sidebar -->
+<div class="col-lg-3 left-sidebar d-none d-lg-block">
+  <ul class="list-group">
+    <li
+      class="list-group-item d-flex justify-content-between align-items-center"
+    >
+      ALL
+      <span class="badge bg-primary rounded-circle px-2 py-1">2</span>
+    </li>
+    {%for topic in topics %}
+    <li
+      class="list-group-item d-flex justify-content-between align-items-center"
+    >
+      {{topic.name}}
+      <span class="badge bg-secondary rounded-circle px-2 py-1"
+        >{{topic.room_set.all.count}}</span
+      >
+    </li>
+    {% endfor %}
+  </ul>
+</div>

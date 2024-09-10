@@ -2,19 +2,15 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from base.forms import RoomForm
-from .models import Room
+from .models import Room, Topic
 
 # Create your views here.
 
-rooms = [
-    {'id': 1, "name": "Room 1", "status": "Available"},
-    {'id': 2, "name": "Room 2", "status": "Available"},
-    {'id': 3, "name": "Room 3", "status": "Unavailable"},
-]
 
 def home(request):
     rooms = Room.objects.all()
-    context = {'rooms': rooms}
+    topics = Topic.objects.all()
+    context = {'rooms': rooms, 'topics': topics}
     return render(request, "base/pages/index.html", context)
 
 def room(request, id):
@@ -59,9 +55,3 @@ def deleteRoom(request, id):
         print(f'Room {id} - {room.name} deleted successfully')
         return redirect('home')
     return render(request, "base/pages/delete.html", context)
-
-def get_room_by_id(room_id):
-    for room in rooms:
-        if room['id'] == room_id:
-            return room
-    return None
