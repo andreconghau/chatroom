@@ -1,5 +1,10 @@
 <!-- Main Content -->
 <div class="col-lg-6 col-md-8 main-content">
+  <div>
+    <span class="text-start">
+        Rooms of result: <span class="text-primary">{{rooms.count}} / {{rooms_count}}</span> 
+    </span>
+</div>
   <!-- prettier-ignore -->
   {% if rooms.count > 0 %}
     {%for room in rooms %}
