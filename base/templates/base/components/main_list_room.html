@@ -1,52 +1,53 @@
 <!-- Main Content -->
 <div class="col-lg-6 col-md-8 main-content">
-  {% if rooms.count > 0 %}{%for room in rooms %}
-  <div class="post position-relative">
-    <!-- Title and Description -->
-    <h5><a href="{% url 'room' room.id %}">{{room.name}}</a></h5>
-    <p class="desc">{{room.description}}</p>
+  <!-- prettier-ignore -->
+  {% if rooms.count > 0 %}
+    {%for room in rooms %}
+      <div class="post position-relative">
+        <!-- Title and Description -->
+        <h5><a href="{% url 'room' room.id %}">{{room.name}}</a></h5>
+        <p class="desc">{{room.description}}</p>
 
-    <!-- Join Button (Visible when not followed) -->
-    <button class="btn btn-outline-primary position-absolute top-0 end-0 m-2">
-      <i class="fas fa-user-plus me-1 fa-2xs"></i> Join +
-    </button>
+        <!-- Join Button (Visible when not followed) -->
+        <button class="btn btn-outline-primary position-absolute top-0 end-0 m-2">
+          <i class="fas fa-user-plus me-1 fa-2xs"></i> Join +
+        </button>
 
-    <!-- Followed Button (Icon in Front) -->
-    <button
-      class="btn btn-success position-absolute top-0 end-0 m-2"
-      style="right: 90px"
-    >
-      <i class="fas fa-check me-1 fa-2xs"></i> Followed
-    </button>
+        <!-- Followed Button (Icon in Front) -->
+        <button
+          class="btn btn-success position-absolute top-0 end-0 m-2"
+          style="right: 90px"
+        >
+          <i class="fas fa-check me-1 fa-2xs"></i> Followed
+        </button>
 
-    <!-- Update, Delete, Disable Icons (Positioned at the bottom-right corner) -->
-    <div class="position-absolute bottom-0 end-0 m-2">
-      <!-- Update Button -->
-      <a class="btn btn-outline-secondary me-2" href='{% url 'update-room' room.id %}'>
-        <i class="fas fa-edit fa-2xs"></i>
-      </a>
+        <!-- Update, Delete, Disable Icons (Positioned at the bottom-right corner) -->
+        <div class="position-absolute bottom-0 end-0 m-2">
+          <!-- Update Button -->
+          <a class="btn btn-outline-secondary me-2" href='{% url 'update-room' room.id %}'>
+            <i class="fas fa-edit fa-2xs"></i>
+          </a>
 
-      <!-- Delete Button -->
-      <a class="btn btn-outline-danger me-2" href="{% url 'delete-room' room.id %}">
-        <i class="fas fa-trash-alt fa-2xs"></i>
-      </a>
+          <!-- Delete Button -->
+          <a class="btn btn-outline-danger me-2" href="{% url 'delete-room' room.id %}">
+            <i class="fas fa-trash-alt fa-2xs"></i>
+          </a>
 
-      <!-- Disable Button -->
-      {% comment %} <a class="btn btn-outline-warning">
-        <i class="fas fa-ban fa-2xs"></i>
-      </a> {% endcomment %}
-    </div>
+          <!-- Disable Button -->
+          {% comment %} <a class="btn btn-outline-warning">
+            <i class="fas fa-ban fa-2xs"></i>
+          </a> {% endcomment %}
+        </div>
 
-    <!-- Post Information -->
-    <div class="info mt-4">
-      <span><i class="fas fa-calendar-alt"></i> {{ room.updated_at|date:"M d, Y" }}</span>
-      <span><i class="fas fa-eye"></i> 1.2k</span>
-      <span><i class="fas fa-comments"></i> 35</span>
-      <span><i class="fas fa-star"></i> 4.5/5</span>
-    </div>
-  </div>
-
-  {% endfor %}
+        <!-- Post Information -->
+        <div class="info mt-4">
+          <span><i class="fas fa-calendar-alt"></i> {{ room.updated_at|date:"M d, Y" }}</span>
+          <span><i class="fas fa-eye"></i> 1.2k</span>
+          <span><i class="fas fa-comments"></i> 35</span>
+          <span><i class="fas fa-star"></i> 4.5/5</span>
+        </div>
+      </div>
+    {% endfor %}
   {% else %}
   <h3 class="text-center">No Rooms Found</h3>
   {% endif %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-
+from django.db.models import Q
 from base.forms import RoomForm
 from .models import Room, Topic
 
@@ -9,11 +9,18 @@ from .models import Room, Topic
 
 def home(request):
     topic_id = request.GET.get('topic', None)
+    search_param = request.GET.get('search', None)
+    print(f'search_param: {search_param}')
     topics = Topic.objects.all()
     rooms_count = Room.objects.count()
-    if topic_id:
-        rooms = Room.objects.filter(topic__id=topic_id)
+    # Apply filters if topic_id or room_title is provided
+    if topic_id or search_param:
+        rooms = Room.objects.filter(
+            Q(topic__id=topic_id) if topic_id else Q() |
+            Q(name__icontains=search_param) | Q(description__icontains=search_param) if search_param else Q()
+        )
     else:
+        # If no filters are provided, return all rooms
         rooms = Room.objects.all()
 
     context = {'rooms': rooms, 'topics': topics, 'rooms_count': rooms_count}
