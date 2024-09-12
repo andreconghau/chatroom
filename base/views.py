@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from django.db.models import Q
 from base.forms import RoomForm
 from .models import Room, Topic
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
 
 # Create your views here.
 
@@ -68,3 +71,34 @@ def deleteRoom(request, id):
         print(f'Room {id} - {room.name} deleted successfully')
         return redirect('home')
     return render(request, "base/pages/delete.html", context)
+
+def loginPage(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        print(f'Username: {username}, Password: {password}')
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            messages.error(request, 'User does not exist')
+        # if user.check_password(password):
+        #     print('User authenticated')
+        #     return redirect('home')
+        # else:
+        #     print('Password incorrect')
+        #     messages.error(request, 'Authentication failed')
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            print('User authenticated')
+            return redirect('home')
+        else:
+            messages.error(request, 'Username or Passowrd is incorrect')
+    context = {}
+
+    return render(request, "base/pages/login.html", context)
+
+def logoutPage(request):
+    logout(request)
+    return redirect('home')
