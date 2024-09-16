@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -55,6 +56,8 @@ def createRoom(request):
 @login_required(login_url='login')
 def updateRoom(request, id):
     room = Room.objects.get(id=id)
+    if request.user != room.host:
+        return HttpResponse('You are not allowed here!', status=401)
     form = RoomForm(instance=room)
     context = {'form': form}
     if request.method == 'POST':
@@ -68,6 +71,8 @@ def updateRoom(request, id):
 @login_required(login_url='login')
 def deleteRoom(request, id):
     room = Room.objects.get(id=id)
+    if request.user != room.host:
+        return HttpResponse('You are not allowed here!', status=401)
     context = {'obj': room}
     if request.method == 'POST':
         room.delete()

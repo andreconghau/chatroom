@@ -26,6 +26,7 @@
           <i class="fas fa-check me-1 fa-2xs"></i> Followed
         </button>
 
+        {% if request.user == room.host %}
         <!-- Update, Delete, Disable Icons (Positioned at the bottom-right corner) -->
         <div class="position-absolute bottom-0 end-0 m-2">
           <!-- Update Button -->
@@ -43,13 +44,14 @@
             <i class="fas fa-ban fa-2xs"></i>
           </a> {% endcomment %}
         </div>
-
+        {% endif %}
         <!-- Post Information -->
         <div class="info mt-4">
           <span><i class="fas fa-calendar-alt"></i> {{ room.updated_at|date:"M d, Y" }}</span>
           <span><i class="fas fa-eye"></i> 1.2k</span>
           <span><i class="fas fa-comments"></i> 35</span>
           <span><i class="fas fa-star"></i> 4.5/5</span>
+          <span><i class="fas fa-user"></i> {{ room.host.username}}</span>
         </div>
       </div>
     {% endfor %}
