@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.db.models import Q
 from base.forms import RoomForm
 from .models import Room, Topic
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -36,6 +36,7 @@ def room(request, id):
     print(context)
     return render(request, "base/pages/room.html", context)
 
+@login_required(login_url='login')
 def createRoom(request):
     form = RoomForm()
     context = {'form': form}
@@ -51,6 +52,7 @@ def createRoom(request):
         
     return render(request, "base/pages/room_form.html", context)
 
+@login_required(login_url='login')
 def updateRoom(request, id):
     room = Room.objects.get(id=id)
     form = RoomForm(instance=room)
@@ -63,6 +65,7 @@ def updateRoom(request, id):
             return redirect('home')
     return render(request, "base/pages/room_form.html", context)
 
+@login_required(login_url='login')
 def deleteRoom(request, id):
     room = Room.objects.get(id=id)
     context = {'obj': room}
