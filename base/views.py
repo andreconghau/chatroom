@@ -11,7 +11,6 @@ from django.http import HttpResponse
 
 # Create your views here.
 
-
 def home(request):
     topic_id = request.GET.get('topic', None)
     search_param = request.GET.get('search', None)
@@ -22,7 +21,8 @@ def home(request):
     if topic_id or search_param:
         rooms = Room.objects.filter(
             Q(topic__id=topic_id) if topic_id else Q() |
-            Q(name__icontains=search_param) | Q(description__icontains=search_param) if search_param else Q()
+            Q(name__icontains=search_param) |
+            Q(description__icontains=search_param) if search_param else Q()
         )
     else:
         # If no filters are provided, return all rooms
@@ -31,12 +31,14 @@ def home(request):
     context = {'rooms': rooms, 'topics': topics, 'rooms_count': rooms_count}
     return render(request, "base/pages/index.html", context)
 
+
 def room(request, id):
     id_parse = int(id)
     room_item = Room.objects.get(id=id_parse)
-    context = {'id': id_parse, 'room': room_item}  
+    context = {'id': id_parse, 'room': room_item}
     print(context)
     return render(request, "base/pages/room.html", context)
+
 
 @login_required(login_url='login')
 def createRoom(request):
@@ -51,8 +53,8 @@ def createRoom(request):
             formData.save()
             print('Room save successfully')
             return redirect('home')
-        
     return render(request, "base/pages/room_form.html", context)
+
 
 @login_required(login_url='login')
 def updateRoom(request, id):
@@ -69,6 +71,7 @@ def updateRoom(request, id):
             return redirect('home')
     return render(request, "base/pages/room_form.html", context)
 
+
 @login_required(login_url='login')
 def deleteRoom(request, id):
     room = Room.objects.get(id=id)
@@ -80,6 +83,7 @@ def deleteRoom(request, id):
         print(f'Room {id} - {room.name} deleted successfully')
         return redirect('home')
     return render(request, "base/pages/delete.html", context)
+
 
 def loginPage(request):
     if request.user.is_authenticated:
@@ -110,6 +114,13 @@ def loginPage(request):
 
     return render(request, "base/pages/login.html", context)
 
+
 def logoutPage(request):
     logout(request)
     return redirect('home')
+
+
+def registerPae(request):
+    context = {}
+
+    return render(request, "base/pages/register.html", context)

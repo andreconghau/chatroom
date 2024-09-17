@@ -9,7 +9,7 @@ class Topic(models.Model):
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
     def __str__(self):
         return self.name
 
@@ -25,10 +25,10 @@ class Room(models.Model):
 
     class Meta:
         ordering = ['-updated_at']
-    
-    def __str__(self):
-        return self.name
-    
+
+        def __str__(self):
+            return self.name
+
 
 class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
