@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.contrib.auth.forms import UserCreationForm
 
 
 # Create your views here.
@@ -89,7 +90,7 @@ def loginPage(request):
     if request.user.is_authenticated:
         return redirect('home')
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username = request.POST.get('username').lower()
         password = request.POST.get('password')
         print(f'Username: {username}, Password: {password}')
         try:
@@ -120,7 +121,21 @@ def logoutPage(request):
     return redirect('home')
 
 
-def registerPae(request):
-    context = {}
-
+def registerPage(request):
+    form = UserCreationForm()
+    user = None
+    if request.method == 'POST':
+        print(request.POST)
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.save()
+            print('User registered successfully')
+            login(request, user)
+            return redirect('home')
+        else:
+            print('User registration failed')
+            messages.error(request, 'An error occurred during registration')
+    context = {'form': form, 'user': user}
     return render(request, "base/pages/register.html", context)
