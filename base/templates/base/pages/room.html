@@ -1,8 +1,90 @@
 <!-- prettier-ignore -->
-{% extends 'layouts/default.html' %} 
-{% block content %}
-<h1>Room Page</h1>
-<p>This Room ID is: {{ id }}</p>
-<p>room name: {{ room.name }}</p>
-<p>room description: {{ room.description }}</p>
-{% endblock content %}
+{% extends 'layouts/fb.html' %} 
+{% block content  %}
+<!-- 3-Column Layout -->
+<div class="container-fluid mt-4">
+  <div class="row">
+    <!-- prettier-ignore -->
+    {% include 'base/components/left_side_bar.html' %}
+    <!-- Main Content -->
+    <div class="col-lg-6 col-md-8 main-content">
+      <div class="post position-relative">
+        <!-- Post Title -->
+        <h2 class="mb-3">{{ post.name }}</h2>
+
+        <!-- Post Metadata -->
+        <div class="post-meta mb-3 text-muted">
+          <span>
+            <i class="fas fa-user"></i>
+            {{room.host}}
+          </span>
+          |
+          <span>
+            <i class="fas fa-calendar-alt"></i>
+
+            {{ room.updated_at|date:"M d,Y"}}
+          </span>
+          |
+          <span><i class="fas fa-eye"></i> 11 Views</span>
+        </div>
+
+        <!-- Post Content -->
+        <div class="post-content">
+          <p>{{ room.description }}</p>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="comments-section mt-5">
+          <h4>Comments (12)</h4>
+
+          <!-- Comments List -->
+          <ul class="list-unstyled">
+            {% for comment in room.comments.all %}
+            <li class="media mb-3">
+              <img
+                src="{{ comment.author.profile_picture.url }}"
+                class="mr-3 rounded-circle"
+                alt="{{ comment.author.get_full_name }}"
+                width="50"
+                height="50"
+              />
+              <div class="media-body">
+                <h6 class="mt-0 mb-1">{{ comment.author.get_full_name }}</h6>
+                <small class="text-muted"
+                  ><i class="fas fa-calendar-alt"></i> {{
+                  comment.created_at|date:"M d, Y H:i" }}</small
+                >
+                <p>{{ comment.content }}</p>
+              </div>
+            </li>
+            {% empty %}
+            <p>No comments yet.</p>
+            {% endfor %}
+          </ul>
+
+          <!-- Add Comment Form -->
+          <div class="add-comment mt-4">
+            <h5>Add a Comment</h5>
+            <form method="POST" action="">
+              {% csrf_token %}
+              <div class="mb-3">
+                <textarea
+                  name="content"
+                  class="form-control"
+                  rows="4"
+                  placeholder="Write your comment here"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                Submit Comment
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% include 'base/components/right_side_bar.html' %}
+  </div>
+  {% endblock content %}
+</div>

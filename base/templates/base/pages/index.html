@@ -7,16 +7,7 @@
     <!-- prettier-ignore -->
     {% include 'base/components/left_side_bar.html' %} 
     {% include 'base/components/main_list_room.html' %}
-
-    <!-- Right Sidebar -->
-    <div class="col-lg-3 right-sidebar d-none d-md-block">
-      <ul class="list-group">
-        <li class="list-group-item">Friends Online</li>
-        <li class="list-group-item">Upcoming Events</li>
-        <li class="list-group-item">Trending</li>
-        <li class="list-group-item">Suggested Groups</li>
-      </ul>
-    </div>
+    {% include 'base/components/right_side_bar.html' %}
   </div>
 </div>
 {% endblock content %}
