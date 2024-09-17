@@ -39,29 +39,46 @@
 
           <!-- Comments List -->
           <ul class="list-unstyled">
-            {% for comment in room.comments.all %}
-            <li class="media mb-3">
-              <img
-                src="{{ comment.author.profile_picture.url }}"
-                class="mr-3 rounded-circle"
-                alt="{{ comment.author.get_full_name }}"
-                width="50"
-                height="50"
-              />
-              <div class="media-body">
-                <h6 class="mt-0 mb-1">{{ comment.author.get_full_name }}</h6>
-                <small class="text-muted"
-                  ><i class="fas fa-calendar-alt"></i> {{
-                  comment.created_at|date:"M d, Y H:i" }}</small
+            {% for message in messages %}
+            <li
+              class="media mb-3 {% if message.user == request.user %}justify-content-end text-right{% endif %}"
+            >
+              <div
+                class="d-flex align-items-center {% if message.user == request.user %}flex-row-reverse{% endif %}"
+              >
+                <!-- Avatar -->
+                <img
+                  src="https://avatar.iran.liara.run/public"
+                  class="rounded-circle me-3 {% if message.user == request.user %}ms-3 me-0{% endif %}"
+                  alt="@{{ message.user }}"
+                  width="50"
+                  height="50"
+                />
+                <!-- Username and Date -->
+                <div
+                  class="{% if message.user == request.user %}text-end{% endif %}"
                 >
-                <p>{{ comment.content }}</p>
+                  <h6 class="mb-0">@{{ message.user }}</h6>
+                  <small class="text-muted">
+                    <i class="fas fa-calendar-alt"></i>
+                    {{ message.created_at|timesince }} ago
+                  </small>
+                </div>
+              </div>
+              <!-- Highlighted Message Body -->
+              <div
+                class="mt-2 p-3 rounded {% if message.user == request.user %}bg-light text-primary text-end ms-auto{% else %}bg-light{% endif %}"
+                style="max-width: 75%"
+              >
+                <p class="mb-0">{{ message.body }}</p>
               </div>
             </li>
+
             {% empty %}
             <p>No comments yet.</p>
             {% endfor %}
           </ul>
-
+          {% if request.user.is_authenticated %}
           <!-- Add Comment Form -->
           <div class="add-comment mt-4">
             <h5>Add a Comment</h5>
@@ -81,6 +98,7 @@
               </button>
             </form>
           </div>
+          {% endif %}
         </div>
       </div>
     </div>

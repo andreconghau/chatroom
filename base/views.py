@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from base.forms import RoomForm
-from .models import Room, Topic
+from .models import Room, Topic, Message
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -36,7 +36,22 @@ def home(request):
 def room(request, id):
     id_parse = int(id)
     room_item = Room.objects.get(id=id_parse)
-    context = {'id': id_parse, 'room': room_item}
+    messages = room_item.message_set.all().order_by('-created_at')
+    print(messages)
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        if len(content) > 0:
+            message_obj = Message.objects.create(
+                user=request.user,
+                room=room_item,
+                body=content
+            )
+            message_obj.save()
+            print('Message created successfully')
+            return redirect('room', id=id)
+        else:
+            messages.error(request, 'Message is empty')
+    context = {'id': id_parse, 'room': room_item, 'messages': messages}
     print(context)
     return render(request, "base/pages/room.html", context)
 
