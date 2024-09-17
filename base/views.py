@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
+
 # Create your views here.
 
 
@@ -81,6 +82,8 @@ def deleteRoom(request, id):
     return render(request, "base/pages/delete.html", context)
 
 def loginPage(request):
+    if request.user.is_authenticated:
+        return redirect('home')
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
